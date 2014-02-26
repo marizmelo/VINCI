@@ -1,4 +1,4 @@
 VINCI
 =====
 
-VINCI is a sleek resource visualizer application for directories
+VINCI is a sleek Resources visualizer application written in PHP
