@@ -1,0 +1,29 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+#gallery .grid6>div {
+	height: 150px;
+	cursor: pointer;
+	padding: 0;
+	margin: 0;
+}
+
+#gallery .grid6>div .content{
+	display: none;
+}
+
+#gallery .grid6>div:hover .content{
+	width: 100%;
+	height: 100%;
+	background: #8d2396;
+	display: block;
+	opacity: .8;
+	padding: 10px;
+}
+
+@media screen and (max-width:600px) {
+	header #logo{
+		display: none;
+	}
+}
