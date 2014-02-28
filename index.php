@@ -20,8 +20,36 @@ $resources = 'resources/';
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:600,300,700,400' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="xtyle/css/xtyle.min.css">
 	<link rel="stylesheet" type="text/css" href="xtyle/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="xtyle/css/magnific.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script src="/xtyle/js/magnific.js"></script>
 	<script src="/xtyle/js/xtyle.min.js"></script>
+	<script>
+		$(document).ready(function() {
+  		$('.grid6 a').magnificPopup({
+  			type: 'image',
+		closeOnContentClick: false,
+		closeBtnInside: false,
+		mainClass: 'mfp-with-zoom mfp-img-mobile',
+		image: {
+			verticalFit: true,
+			titleSrc: function(item) {
+				return item.el.attr('title') + ' &middot; <a class="image-source-link" href="'+item.el.attr('data-source')+'" target="_blank">image source</a>';
+			}
+		},
+		gallery: {
+			enabled: true
+		},
+		zoom: {
+			enabled: true,
+			duration: 300, // don't foget to change the duration also in CSS
+			opener: function(element) {
+				return element.find('img');
+			}
+		}
+			 });
+		});
+	</script>
 </head>
 <body>
 	<header>
@@ -32,13 +60,6 @@ $resources = 'resources/';
 		</nav>
 	</header>
 
-
-	<?php
-
-
-
-	?>
-
 	
 
 	<div id="gallery" class="grid">
@@ -47,15 +68,13 @@ $resources = 'resources/';
 
 		    /* This is the correct way to loop over the directory. */
 		    while (false !== ($entry = readdir($handle))) {
-		    	if ($entry != ".DS_Store" && $entry != "." && $entry != "..") {
+		    	if (!isset($_GET['folder']) && $entry != ".DS_Store" && $entry != "." && $entry != "..") {
 
 
 		?>
 		<div class="grid6">
 			<div class="background green" style="background:url('<?=$resources.$entry?>') center no-repeat #F7F7F7">
-				<div class="content color white">
-					<h4><?=$entry?></h4>
-				</div>
+				<a href="<?=$resources.$entry?>"><h4><?=$entry?></h4></a>
 			</div>
 		</div>
 		<?php
