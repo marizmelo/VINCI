@@ -35,8 +35,8 @@ $resources = 'resources/';
 		
 		<!-- LIST OF FOLDERS -->
 		<div class="grid6" ng-repeat="folder in folders">
-			<div class="background green" style="background: #F7F7F7">
-				<a href=""><h4>{{folder|justName}}</h4></a>
+			<div class="background green" style="background: url(xtyle/img/folder.png) center #F7F7F7 no-repeat;">
+				<a href=""><h4>{{folder|justName}}/</h4></a>
 			</div>
 		</div>
 
