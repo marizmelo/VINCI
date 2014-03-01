@@ -1,7 +1,7 @@
 <?php
 
 	function returnFolder() {
-		
+
 	}
 
 	if ($_SERVER['SERVER_NAME'] != "0.0.0.0") {
@@ -12,9 +12,9 @@
 
 	// VERIFY IF DIRECTORY WAS PASSED AS PARAMETER
 	if (isset($_GET['dir']) && $_GET['dir'] != '') {
-		$dir = getcwd() . '/' . $_GET['dir'].'/*';
+		$dir = './' . $_GET['dir'].'/*';
 	} else {
-		$dir = getcwd() . '/*';
+		$dir = './*';
 	}
 
 	// CREATE ARRAYS TO HOLD FOLDERS / FILES

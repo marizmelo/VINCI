@@ -31,22 +31,24 @@ $resources = 'resources/';
 		</nav>
 	</header>
 
-	<div id="gallery" class="grid" ng-controller="Files">
-		
-		<!-- LIST OF FOLDERS -->
-		<div class="grid6" ng-repeat="folder in folders">
-			<div class="background green" style="background: #F7F7F7">
-				<a href=""><h4>{{folder|justName}}</h4></a>
+	<div id="gallery" class="grid">
+		<?php
+			if ($handle = opendir($resources)) {
+		    /* This is the correct way to loop over the directory. */
+		    while (false !== ($entry = readdir($handle))) {
+		    	if (!isset($_GET['folder']) && $entry != ".DS_Store" && $entry != "." && $entry != "..") {
+		?>
+		<div class="grid6">
+			<div class="background green" style="background:url('<?=$resources.$entry?>') center no-repeat #F7F7F7">
+				<a href="<?=$resources.$entry?>"><h4><?=$entry?></h4></a>
 			</div>
 		</div>
-
-		<!-- LIST OF FILES -->
-		<div class="grid6" ng-repeat="file in files">
-			<div class="background green" style="background: url({{file}}) center #F7F7F7">
-				<a href=""><h4>{{file | justName}}</h4></a>
-			</div>
-		</div>
-		
+		<?php
+					}
+			  }
+			  closedir($handle);
+			}
+		?>
 	</div>
 
 	<footer>

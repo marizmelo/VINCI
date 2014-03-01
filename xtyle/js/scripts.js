@@ -7,15 +7,31 @@ var vinci = angular.module('vinci', []);
 // -------------------------
 // FILTERS
 // -------------------------
-
+vinci.filter('justName', function () {
+	return function(text) {
+		var newtext = text.split('/');
+		return newtext[newtext.length-1];
+	}
+});
 
 // -------------------------
 // CONTROLLERS
 // -------------------------
 
-vinci.controller('Grid', function ($scope, $http, API) {
-	// Get directory folders / files
+vinci.controller('Files', function ($scope, $http, API, Model) {
 
+	// get list of all feeds with news which user is subscribed to
+  $http.get( Model.searchurl ).
+  success(function (data) {
+    //$scope.files = data.results;
+    $scope.files = data.files;
+    $scope.folders = data.folders;
+    console.log(data);
+  }).
+    error(function (data, status) {
+      console.log(status);
+    });
+	
 }); 
 
 // -------------------------
@@ -29,24 +45,12 @@ vinci.controller('Grid', function ($scope, $http, API) {
 
 vinci.factory('Model', function () {
 	return {
-		searchurl : './search.php?dir=',
+		searchurl : 'http://0.0.0.0:7000/search.php?dir=resources',
 		files : null
 	};
 });
 
 vinci.service('API', function ($http, Model) {
-	var self = this; // cache object
-
-	self.getFiles = function (folder) {
-		$http.get( Model.searchurl + folder).
-    success(function (data) {
-      Model.files = data.results;
-    }).
-    error(function (data, status) {
-      Model.files = null;
-    });
-	};
-
 	
 });
 
