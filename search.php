@@ -1,5 +1,9 @@
 <?php
 
+	function returnFolder() {
+		
+	}
+
 	if ($_SERVER['SERVER_NAME'] != "0.0.0.0") {
 		exit();
 	}
