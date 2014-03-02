@@ -18,7 +18,12 @@ vinci.filter('justName', function () {
 // CONTROLLERS
 // -------------------------
 
-vinci.controller('Files', function ($scope, $http, API, Model) {
+vinci.controller('Files', function ($rootScope, $scope, $http, Model, $filter) {
+
+	var justNameController = function (url) {
+		var newurl = url.split('/');
+		return newurl[newurl.length-1];
+	};
 
 	// get list of all feeds with news which user is subscribed to
   $http.get( Model.searchurl ).
@@ -31,13 +36,38 @@ vinci.controller('Files', function ($scope, $http, API, Model) {
     error(function (data, status) {
       console.log(status);
     });
+
+
+   $scope.updateFiles = function (url) {
+   	// console.log(url);
+   	// console.log(justNameController(url));
+   	// console.log(Model.searchurl + '/' + justNameController(url));
+   	//console.log(Model.searchurl + $filter('justName')(url));
+		$http.get( Model.searchurl + '/' + justNameController(url) ).
+	  success(function (data) {
+	    $rootScope.$broadcast('files', data.files);
+	    $rootScope.$broadcast('folders', data.folders);
+	    console.log(data);
+	  }).
+	    error(function (data, status) {
+	      console.log(status);
+	    });
+	};
 	
 }); 
 
 // -------------------------
 // DIRECTIVES
 // -------------------------
-
+vinci.directive('files', function ($timeout) {
+	return function (scope, element, attrs) {
+		if (scope.$last) {
+			$timeout (function () {
+				$('div[files] a').magnificPopup({type:'image'});
+			});
+		}
+	};
+});
 
 // -------------------------
 // SERVICES
@@ -45,46 +75,15 @@ vinci.controller('Files', function ($scope, $http, API, Model) {
 
 vinci.factory('Model', function () {
 	return {
-		searchurl : 'http://0.0.0.0:7000/search.php?dir=resources',
-		files : null
+		searchurl : 'http://0.0.0.0:7000/search.php?dir=resources', // url of API
+		files : null, // hold list of files from server
+		current : null // holds current folder
 	};
 });
 
-vinci.service('API', function ($http, Model) {
-	
-});
 
 $(function() {
 
-	/* JSON REQUEST */
-	/*$.ajax({
-  	dataType: "json",
-  	url: url,
-  	data: data,
-  	success: success
-	});*/
-
 	/* MAGNIFIC */
-	$('.grid6 a').magnificPopup({
-		type: 'image',
-		closeOnContentClick: false,
-		closeBtnInside: false,
-		mainClass: 'mfp-with-zoom mfp-img-mobile',
-		image: {
-			verticalFit: true,
-			titleSrc: function(item) {
-				return item.el.attr('title') + ' &middot; <a class="image-source-link" href="'+item.el.attr('data-source')+'" target="_blank">image source</a>';
-			}
-		},
-		gallery: {
-			enabled: true
-		},
-		zoom: {
-			enabled: true,
-			duration: 300,
-			opener: function(element) {
-				return element.find('img');
-			}
-		}
-	 });
+	
 });
