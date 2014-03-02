@@ -31,7 +31,6 @@ vinci.controller('Files', function ($rootScope, $scope, $http, Model, $filter) {
     //$scope.files = data.results;
     $scope.files = data.files;
     $scope.folders = data.folders;
-    console.log(data);
   }).
     error(function (data, status) {
       console.log(status);
@@ -39,10 +38,6 @@ vinci.controller('Files', function ($rootScope, $scope, $http, Model, $filter) {
 
 
    $scope.updateFiles = function (url) {
-   	// console.log(url);
-   	// console.log(justNameController(url));
-   	// console.log(Model.searchurl + '/' + justNameController(url));
-   	//console.log(Model.searchurl + $filter('justName')(url));
 		$http.get( Model.searchurl + '/' + justNameController(url) ).
 	  success(function (data) {
 	    $rootScope.$broadcast('files', data.files);
@@ -63,7 +58,12 @@ vinci.directive('files', function ($timeout) {
 	return function (scope, element, attrs) {
 		if (scope.$last) {
 			$timeout (function () {
-				$('div[files] a').magnificPopup({type:'image'});
+				$('div[files] a').magnificPopup({
+					type:'image',
+					gallery: {
+						enabled: true
+					}
+				});
 			});
 		}
 	};

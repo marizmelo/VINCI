@@ -36,14 +36,14 @@ $resources = 'resources/';
 		<!-- LIST OF FOLDERS -->
 		<div folders class="grid6" ng-repeat="folder in folders">
 			<div style="background: url(xtyle/img/folder.png) center #F7F7F7 no-repeat;">
-				<a href><h4>{{folder|justName}}/</h4></a>
+				<a href><h4>{{ folder | justName }}/</h4></a>
 			</div>
 		</div>
 
 		<!-- LIST OF FILES -->
 		<div files class="grid6" ng-repeat="file in files">
-			<div style="background: url({{file}}) center #F7F7F7">
-				<a href="{{file}}" title="{{file}}"><h4>{{file | justName}}</h4></a>
+			<div style="background: url( {{ file }} ) center #F7F7F7">
+				<a href="{{ file }}" title="{{ file | justName }}"><h4>{{file | justName}}</h4></a>
 			</div>
 		</div>
 		
