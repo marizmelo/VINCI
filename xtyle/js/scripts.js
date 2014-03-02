@@ -80,10 +80,3 @@ vinci.factory('Model', function () {
 		current : null // holds current folder
 	};
 });
-
-
-$(function() {
-
-	/* MAGNIFIC */
-	
-});
