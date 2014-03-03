@@ -26,10 +26,11 @@ vinci.controller('Files', function ($scope, $http, Model, $filter) {
 	};
 
 	// get list of all feeds with news which user is subscribed to
-  $http.get( Model.searchurl ).
+  $http.get( Model.searchurl + Model.current[0] ).
   success(function (data) {
     $scope.files = data.files;
     $scope.folders = data.folders;
+    console.log(data.folders);
   }).
     error(function (data, status) {
       console.log(status);
@@ -37,11 +38,24 @@ vinci.controller('Files', function ($scope, $http, Model, $filter) {
 
    // update list of files/folders based on url (folder)
    $scope.updateFiles = function (url) {
-		$http.get( Model.searchurl + '/' + justNameController(url) ).
+   	
+   	var nameurl = justNameController(url);
+   	if ( nameurl !== ".." ) {
+   		Model.current.push(nameurl);
+   	} else if ( Model.current.length > 1 ) {
+   		Model.current.pop();
+   	}
+   	
+		$http.get( Model.searchurl + Model.current.join("/") ).
 	  success(function (data) {
 	    $scope.files = data.files;
-    	$scope.folders = data.folders;
-	    console.log(data);
+	    
+	    if ( Model.current.length == 1) {
+	    	$scope.folders = data.folders;	
+	    } else {
+	    	data.folders.unshift("..");
+	    	$scope.folders = data.folders;
+	    }
 	  }).
 	    error(function (data, status) {
 	      console.log(status);
@@ -74,8 +88,8 @@ vinci.directive('files', function ($timeout) {
 
 vinci.factory('Model', function () {
 	return {
-		searchurl : 'http://0.0.0.0:7000/search.php?dir=resources', // url of API
+		searchurl : 'http://0.0.0.0:7000/search.php?dir=', // url of API
 		files : null, // hold list of files from server
-		current : null // holds current folder
+		current : ["resources"] // start folder
 	};
 });
