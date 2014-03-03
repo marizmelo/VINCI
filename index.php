@@ -8,7 +8,7 @@
 	<meta name="description" content="Project Description">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<!-- <link href="xtyle/img/favicon.ico" rel="icon" type="image/x-icon"> -->
+	<link href="favicon.ico" rel="icon" type="image/x-icon">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:600,300,700,400' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="xtyle/css/xtyle.min.css">
 	<link rel="stylesheet" type="text/css" href="xtyle/css/styles.css">
