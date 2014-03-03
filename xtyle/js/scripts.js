@@ -30,7 +30,6 @@ vinci.controller('Files', function ($scope, $http, Model, $filter) {
   success(function (data) {
     $scope.files = data.files;
     $scope.folders = data.folders;
-    console.log(data.folders);
   }).
     error(function (data, status) {
       console.log(status);
@@ -49,7 +48,7 @@ vinci.controller('Files', function ($scope, $http, Model, $filter) {
 		$http.get( Model.searchurl + Model.current.join("/") ).
 	  success(function (data) {
 	    $scope.files = data.files;
-	    
+
 	    if ( Model.current.length == 1) {
 	    	$scope.folders = data.folders;	
 	    } else {
