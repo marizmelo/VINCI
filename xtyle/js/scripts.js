@@ -18,7 +18,7 @@ vinci.filter('justName', function () {
 // CONTROLLERS
 // -------------------------
 
-vinci.controller('Files', function ($rootScope, $scope, $http, Model, $filter) {
+vinci.controller('Files', function ($scope, $http, Model, $filter) {
 
 	var justNameController = function (url) {
 		var newurl = url.split('/');
@@ -28,7 +28,6 @@ vinci.controller('Files', function ($rootScope, $scope, $http, Model, $filter) {
 	// get list of all feeds with news which user is subscribed to
   $http.get( Model.searchurl ).
   success(function (data) {
-    //$scope.files = data.results;
     $scope.files = data.files;
     $scope.folders = data.folders;
   }).
@@ -36,12 +35,12 @@ vinci.controller('Files', function ($rootScope, $scope, $http, Model, $filter) {
       console.log(status);
     });
 
-
+   // update list of files/folders based on url (folder)
    $scope.updateFiles = function (url) {
 		$http.get( Model.searchurl + '/' + justNameController(url) ).
 	  success(function (data) {
-	    $rootScope.$broadcast('files', data.files);
-	    $rootScope.$broadcast('folders', data.folders);
+	    $scope.files = data.files;
+    	$scope.folders = data.folders;
 	    console.log(data);
 	  }).
 	    error(function (data, status) {
