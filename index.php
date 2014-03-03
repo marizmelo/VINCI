@@ -1,15 +1,7 @@
-<?php 
-include ('hanoi/hanoi.php');
-$config = new Configure();
-$config->title = "VINCI Visualize Resources";
-
-$resources = 'resources/';
-
-?>
 <!DOCTYPE HTML>
 <html class="responsive" ng-app="vinci">
 <head>
-	<title><?=$config->title?></title>
+	<title>VINCI Visualize Resources</title>
 	<meta charset="utf-8">
 	<meta name="robots" content="all">
 	<meta name="citation_author" content="Author Name">
