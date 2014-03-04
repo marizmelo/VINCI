@@ -20,9 +20,33 @@ vinci.filter('justName', function () {
 
 vinci.controller('Files', function ($scope, $http, Model, $filter) {
 
+	// remove path and return just filename
 	var justNameController = function (url) {
 		var newurl = url.split('/');
 		return newurl[newurl.length-1];
+	};
+
+	// try to identify type video (iframe) or image
+	var getType = function (url) {
+		var newurl = justNameController(url).split('.');
+		if (newurl[1] && newurl[1] == "youtube") {
+			return "iframe";
+		} else {
+			return "image";
+		}
+	};
+
+	var returnTypes = function (files) {
+		// check if files is empty
+		if (!files.length) {
+			return null;
+		}
+		var types = new Array();
+    for (var i = 0 ; i < files.length; ++i ) {
+    	types.push(getType(files[i]));
+    	//console.log(files[i]);
+    }
+    return types;
 	};
 
 	// get list of all feeds with news which user is subscribed to
@@ -30,6 +54,7 @@ vinci.controller('Files', function ($scope, $http, Model, $filter) {
   success(function (data) {
     $scope.files = data.files;
     $scope.folders = data.folders;
+    //$scope.types = returnTypes(data.files);
   }).
     error(function (data, status) {
       console.log(status);
@@ -49,6 +74,9 @@ vinci.controller('Files', function ($scope, $http, Model, $filter) {
 	  success(function (data) {
 	    $scope.files = data.files;
 
+	    //$scope.types = returnTypes(data.files);
+
+	    // if it is at the first folder
 	    if ( Model.current.length == 1) {
 	    	$scope.folders = data.folders;	
 	    } else {
@@ -68,6 +96,7 @@ vinci.controller('Files', function ($scope, $http, Model, $filter) {
 // -------------------------
 vinci.directive('files', function ($timeout) {
 	return function (scope, element, attrs) {
+
 		if (scope.$last) {
 			$timeout (function () {
 				$('div[files] a').magnificPopup({

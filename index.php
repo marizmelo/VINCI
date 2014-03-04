@@ -35,7 +35,7 @@
 		<!-- LIST OF FILES -->
 		<div files class="grid6" ng-repeat="file in files">
 			<div style="background: url( '{{ file }}' ) center #F7F7F7">
-				<a href="{{ file }}" title="{{ file | justName }}"><h4>{{file | justName}}</h4></a>
+				<a href="{{ file }}" type="{{ types }}" title="{{ file | justName }}"><h4>{{file | justName}}</h4></a>
 			</div>
 		</div>
 		
