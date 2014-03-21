@@ -116,7 +116,7 @@ vinci.directive('files', function ($timeout) {
 
 vinci.factory('Model', function () {
 	return {
-		searchurl : 'http://0.0.0.0:7000/search.php?dir=', // url of API
+		searchurl : '/search.php?dir=', // url of API
 		files : null, // hold list of files from server
 		current : ["resources"] // start folder
 	};
