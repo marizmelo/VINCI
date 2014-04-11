@@ -1,6 +1,8 @@
 VINCI
 ============
 
+![emoriz preview image](http://emoriz.com/github/vinci.jpg)
+
 VINCI is a sleek Resources visualizer application written in PHP
 
 
